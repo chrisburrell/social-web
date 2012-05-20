@@ -1,6 +1,18 @@
+# Java build output
 *.class
+target
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
+# Eclipse project setup files
+.checkstyle
+*checkstyle*
+.classpath
+.fbprefs
+.pmd
+.project
+.settings
+

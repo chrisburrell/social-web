@@ -1,0 +1,152 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>uk.me.burrell.social</groupId>
+		<artifactId>social-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../social-parent/pom.xml</relativePath>
+	</parent>
+
+	<groupId>uk.me.burrell.social</groupId>
+	<artifactId>social-war</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	
+	<!-- The following maven commands can come in handy
+		mvn cargo:run (starts and deploys WAR file to an embedded Jetty container)
+	-->
+	<name>Social and Personalisation :: Web Application Archive</name>
+
+	<properties>
+		<skipTests>false</skipTests>
+	</properties>
+	
+
+	<dependencies>
+		<dependency>
+			<groupId>uk.me.burrell.social</groupId>
+			<artifactId>social-service</artifactId>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>uk.me.burrell.social</groupId>
+			<artifactId>social-models</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+		</dependency>
+
+		<!-- Content type resolvers: json, rss, -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-xc</artifactId>
+		</dependency>
+
+		<!-- Testing dependencies - scope defined in parent -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>rest-assured</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>uk.me.burrell.social</groupId>
+			<artifactId>social-service</artifactId>
+			<type>test-jar</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<configuration>
+					<container>
+						<containerId>jetty7x</containerId>
+						<type>embedded</type>
+					</container>
+					<configuration>
+						<deployables>
+							<deployable>
+								<groupId>uk.me.burrell.social</groupId>
+								<artifactId>social-war</artifactId>
+								<type>war</type>
+								<properties>
+									<context>social-war</context>
+								</properties>
+							</deployable>
+						</deployables>
+					</configuration>
+					<skip>${skipTests}</skip>
+				</configuration>
+				<executions>
+					<!-- starts the container prior to running the end to end tests -->
+					<execution>
+						<id>start-container</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<!-- stops the container after the tests have run -->
+					<execution>
+						<id>stop-container</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- runs end to end integration tests -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<skip>${skipTests}</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

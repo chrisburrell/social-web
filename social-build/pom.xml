@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>uk.me.burrell.social</groupId>
+		<artifactId>social-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../social-parent/pom.xml</relativePath>
+	</parent>
+	
+	<groupId>uk.me.burrell.social</groupId>
+	<artifactId>social-build</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+	
+	<!-- This resource project contains all resources to set up Checkstyle, Findbugs, PMD, Eclipse formatters, ... -->
+	<name>Social and Personalisation :: Build Tools Resource package</name>
+	
+
+</project>
