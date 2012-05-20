@@ -1,0 +1,7 @@
+uk.me.burrell.social.api
+uk.me.burrell.social.api.impl
+uk.me.burrell.social.api.models
+uk.me.burrell.social.api.service
+uk.me.burrell.social.api.service.errors
+uk.me.burrell.social.api.service.impl
+uk.me.burrell.social.api.views
